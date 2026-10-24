@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halo - Circle to Search & Google AI Mode</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Fullscreen canvas container -->
+  <div id="overlayContainer" class="overlay-container">
+    <!-- Background frozen screenshot canvas -->
+    <canvas id="bgCanvas"></canvas>
+    <!-- Foreground drawing canvas for glowing lasso -->
+    <canvas id="lassoCanvas"></canvas>
+
+    <!-- Hint banner shown before user starts drawing -->
+    <div id="hintBanner" class="hint-banner">
+      <div class="hint-pill">
+        <span class="sparkle-pulse">✦</span>
+        <span>Select or circle anything on your screen to search with Google AI</span>
+        <kbd>Esc</kbd>
+      </div>
+    </div>
+
+    <!-- Floating Google AI Overview Card -->
+    <div id="aiCard" class="ai-card hidden">
+      <!-- Card Header -->
+      <div class="card-header">
+        <div class="header-left">
+          <span class="sparkle-icon">✦</span>
+          <span class="header-title">AI Overview</span>
+          <span class="model-badge" id="modelBadge">Groq Vision Grounded</span>
+        </div>
+        <button id="closeBtn" class="close-btn" title="Close (Esc)" aria-label="Close">✕</button>
+      </div>
+
+      <!-- Shimmer Loading Placeholder -->
+      <div id="loadingPlaceholder" class="loading-container hidden">
+        <div class="loading-grid">
+          <!-- Left Column Shimmer -->
+          <div class="loading-left">
+            <div class="shimmer shimmer-title"></div>
+            <div class="shimmer shimmer-line w-90"></div>
+            <div class="shimmer shimmer-line w-75"></div>
+            <div class="shimmer-pills-row">
+              <div class="shimmer shimmer-pill"></div>
+              <div class="shimmer shimmer-pill"></div>
+            </div>
+            <div class="shimmer shimmer-subtitle mt-4"></div>
+            <div class="shimmer shimmer-line w-80"></div>
+            <div class="shimmer shimmer-line w-85"></div>
+            <div class="shimmer shimmer-line w-60"></div>
+          </div>
+          <!-- Right Column Shimmer -->
+          <div class="loading-right">
+            <div class="shimmer shimmer-card"></div>
+            <div class="shimmer shimmer-card"></div>
+          </div>
+        </div>
+        <div class="loading-status">
+          <div class="loading-spinner"></div>
+          <span>Grounding search with Gemini & Google Search...</span>
+        </div>
+      </div>
+
+      <!-- Main Content (Two-Column Grid) -->
+      <div id="cardContent" class="card-content hidden">
+        <div class="content-grid">
+          <!-- Left Column: Synthesis & Markdown -->
+          <div class="left-column">
+            <!-- Bold Introductory Summary -->
+            <div id="summaryText" class="summary-paragraph"></div>
+
+            <!-- Inline Clickable Source Pills -->
+            <div id="inlineSources" class="inline-sources-container"></div>
+
+            <!-- Key Features / Highlights Section -->
+            <div id="keyFeaturesContainer" class="key-features-section">
+              <h4 class="features-heading">Key Features & Insights</h4>
+              <ul id="keyFeaturesList" class="features-list"></ul>
+            </div>
+
+            <!-- Collapsible Drawer for Extended Details -->
+            <div id="extendedDrawer" class="extended-drawer collapsed">
+              <div id="extendedContent" class="extended-content"></div>
+            </div>
+
+            <!-- Show More / Less Toggle Button -->
+            <button id="showMoreBtn" class="show-more-btn">
+              <span id="showMoreLabel">Show more</span>
+              <span id="showMoreChevron" class="chevron">∨</span>
+            </button>
+          </div>
+
+          <!-- Right Column: Source Cards Stack (220px width) -->
+          <div class="right-column">
+            <div class="sources-header">
+              <span>Sources</span>
+              <span id="sourceCount" class="source-count">0</span>
+            </div>
+            <div id="sourceCardsStack" class="source-cards-stack">
+              <!-- Dynamically populated web cards -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Interactive Bar -->
+      <div class="card-bottom-bar">
+        <!-- Follow-up input form -->
+        <form id="followUpForm" class="follow-up-pill">
+          <input 
+            type="text" 
+            id="followUpInput" 
+            placeholder="Ask a follow up..." 
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button type="submit" id="followUpSendBtn" class="send-arrow-btn" aria-label="Send follow up">➔</button>
+        </form>
+
+        <!-- Action pill buttons -->
+        <div class="action-pills">
+          <button id="copyBtn" class="action-pill" title="Copy synthesis">
+            <span>📋</span>
+            <span class="btn-label">Copy</span>
+          </button>
+          <button id="translateBtn" class="action-pill" title="Translate overview">
+            <span>🌐</span>
+            <span class="btn-label">Translate</span>
+          </button>
+          <button id="rescanBtn" class="action-pill" title="Circle another area">
+            <span>🔄</span>
+            <span class="btn-label">Rescan</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="canvas.js"></script>
+  <script src="card_renderer.js"></script>
+</body>
+</html>

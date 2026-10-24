@@ -1,0 +1,25 @@
+{
+  "name": "halo-desktop",
+  "version": "1.0.0",
+  "description": "Halo - Circle to Search & Google AI Mode for Desktop",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron ."
+  },
+  "keywords": [
+    "circle-to-search",
+    "google-ai-mode",
+    "gemini",
+    "electron",
+    "screen-search"
+  ],
+  "author": "Halo Team",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.2.1"
+  },
+  "dependencies": {
+    "screenshot-desktop": "^1.15.7"
+  }
+}
