@@ -109,8 +109,8 @@ HALO/
 
 ### 2. Clone the Repository
 ```bash
-git clone https://github.com/your-username/halo.git
-cd halo
+git clone https://github.com/khaledbr1/HALO.git
+cd HALO
 ```
 
 ### 3. Install Dependencies
